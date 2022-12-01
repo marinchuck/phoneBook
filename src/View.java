@@ -13,21 +13,24 @@ public class View {
     public void run() {
         while (true) {
             printMenu();
-            runTask(sc.nextLine());
+            runTask(getInput());
         }
     }
 
     void runTask(String option) {
         switch (option) {
             case "1" -> {
+                printInstruction("Kerlek add meg az eleresi utvonalat!");
                 readPeopleFromFile();
                 printPhoneBook();
             }
             case "2" -> {
+                printInstruction("Kerlek add meg a nevet az illetonek!");
                 deletePerson();
                 printPhoneBook();
             }
             case "3" -> {
+                printInstruction("Kerlek add meg az emberunk adatait vesszovel elvalasztva!");
                 addPerson();
                 printPhoneBook();
             }
@@ -35,13 +38,32 @@ public class View {
         }
     }
 
+    private void printInstruction(String s) {
+        System.out.println(s);
+    }
+
     void printPhoneBook() {
         System.out.println(this.phoneBookController.getPhoneBook().toString());
     }
 
+    String getInput() {
+        String input = sc.nextLine();
+        return input;
+    }
+
     void addPerson() {
-        String personData = sc.nextLine();
-        phoneBookController.addPerson(personData);
+        try {
+            String personData = getInput();
+            phoneBookController.addPerson(personData);
+        }
+        catch(NotANumberException e){
+            System.out.println(e.getMessage());
+            this.addPerson();
+        }
+        catch (Exception e) {
+            System.out.println("Valami nem jo, probald ujra!");
+            this.addPerson();
+        }
     }
 
     void printMenu() {
@@ -52,12 +74,12 @@ public class View {
     }
 
     void readPeopleFromFile() {
-        String filePath = sc.nextLine();
+        String filePath = getInput();
         phoneBookController.readPeopleFromFile(filePath);
     }
 
     void deletePerson() {
-        String personName = sc.nextLine();
+        String personName = getInput();
         phoneBookController.deletePerson(personName);
     }
 }

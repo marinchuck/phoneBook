@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class PhoneBook {
 
-    ArrayList<Person> people;
+    private ArrayList<Person> people;
 
     PhoneBook(ArrayList<Person> people) {
         this.people = people;
@@ -32,8 +32,7 @@ public class PhoneBook {
     @Override
     public String toString() {
         String phoneBook = "";
-        for (var person : people
-        ) {
+        for (var person : people) {
             phoneBook += person.toString() + "\n";
         }
         return phoneBook;
