@@ -34,7 +34,41 @@ public class View {
                 addPerson();
                 printPhoneBook();
             }
+            case "4" -> {
+                printInstruction("Kerlek add meg a nevet az illetonek");
+                printPhoneNumberByName();
+            }
+            case "5" -> {
+                printInstruction("Kerlek add meg a telefonszamat az illetonek");
+                printNameByPhoneNumber();
+            }
             case "x" -> System.exit(0);
+            default -> printInstruction("Nem ertelmezheto input, kerlek probald meg ujra!");
+        }
+    }
+
+    private void printNameByPhoneNumber() {
+        try {
+            String phoneNumber = getInput();
+            System.out.println(phoneBookController.findNameByPhoneNumber(phoneNumber));
+        } catch (NotANumberException e) {
+            System.out.println(e.getMessage());
+            this.printInstruction("Probald meg ujra!");
+            this.printNameByPhoneNumber();
+        } catch (NotFoundPersonException e) {
+            System.out.println("Nincs ilyen telefonszam a konyvben.");
+        } catch (Exception e) {
+            System.out.println("Valami nem jo, probald ujra!");
+            this.printNameByPhoneNumber();
+        }
+    }
+
+    private void printPhoneNumberByName() {
+        try {
+            String personName = getInput();
+            System.out.println(phoneBookController.findPhoneNumberByName(personName));
+        } catch (NotFoundPersonException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -55,22 +89,25 @@ public class View {
         try {
             String personData = getInput();
             phoneBookController.addPerson(personData);
-        }
-        catch(NotANumberException e){
+        } catch (NotANumberException e) {
             System.out.println(e.getMessage());
+            this.printInstruction("Probald meg ujra!");
             this.addPerson();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Valami nem jo, probald ujra!");
             this.addPerson();
         }
     }
 
     void printMenu() {
+        System.out.println();
         System.out.println("1 - Add meg a file inputot");
         System.out.println("2 - Torles a telefonkonyvbol");
         System.out.println("3 - Hozzaadas a telefonkonyvhoz");
+        System.out.println("4 - Telefonszam keresese nev alapjan");
+        System.out.println("5 - Nev keresese telefonszam alapjan");
         System.out.println("x - Kilepes");
+        System.out.println();
     }
 
     void readPeopleFromFile() {
@@ -79,7 +116,11 @@ public class View {
     }
 
     void deletePerson() {
-        String personName = getInput();
-        phoneBookController.deletePerson(personName);
+        try {
+            String personName = getInput();
+            phoneBookController.deletePerson(personName);
+        } catch (NotFoundPersonException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

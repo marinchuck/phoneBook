@@ -2,15 +2,16 @@ import java.util.regex.Pattern;
 
 public class PersonUtil {
 
-    private static Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+    private static Pattern pattern = Pattern.compile("[0-9]+");
 
     public static Person convertNameAndNumberToPerson(String nameAndNumber) throws Exception {
 
         String[] nameAndNumberArray = nameAndNumber.split(",");
-        String name = nameAndNumberArray[0];
-        String phoneNumber = nameAndNumberArray[1];
-        if(!isNumeric(phoneNumber))
+        String name = nameAndNumberArray[0].trim();
+        String phoneNumber = nameAndNumberArray[1].trim();
+        if (!isNumeric(phoneNumber)) {
             throw new NotANumberException("A telefonszam nem csupan szamokat tartlamaz!");
+        }
         return new Person(name, phoneNumber);
 
     }
@@ -19,8 +20,7 @@ public class PersonUtil {
         if (strNum == null) {
             return false;
         }
-//        return pattern.matcher(strNum).matches();
-        return true;
+        return pattern.matcher(strNum).matches();
     }
 
 }

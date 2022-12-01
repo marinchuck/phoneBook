@@ -25,8 +25,7 @@ public class Controller {
             for (String line; (line = bufferedReader.readLine()) != null; ) {
                 try {
                     this.addPerson(line);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     continue;
                 }
             }
@@ -41,9 +40,22 @@ public class Controller {
         this.phoneBook.add(personToAdd);
     }
 
-    public void deletePerson(String personName) {
+    public void deletePerson(String personName) throws NotFoundPersonException {
         Person person = this.phoneBook.findPersonByName(personName);
         this.phoneBook.remove(person);
+    }
+
+    public String findPhoneNumberByName(String name) throws NotFoundPersonException {
+        return this.phoneBook.findPersonByName(name).getPhoneNumber();
+    }
+
+    public String findNameByPhoneNumber(String phoneNumber)
+        throws NotANumberException, NotFoundPersonException {
+        if (PersonUtil.isNumeric(phoneNumber)) {
+            return this.phoneBook.findPersonByNumber(phoneNumber).getName();
+        } else {
+            throw new NotANumberException("A telefonszam nem csupan szamokat tartlamaz!");
+        }
     }
 }
 
