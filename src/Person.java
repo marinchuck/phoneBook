@@ -17,4 +17,8 @@ private final String name;
     this.phoneNumber = phoneNumber;
   }
 
+    @Override
+    public String toString() {
+    return this.name + " - " + this.phoneNumber;
+    }
 }

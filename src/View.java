@@ -19,11 +19,24 @@ public class View {
 
     void runTask(String option) {
         switch (option) {
-            case "1" -> readPeopleFromFile();
-            case "2" -> deletePerson();
-            case "3" -> addPerson();
+            case "1" -> {
+                readPeopleFromFile();
+                printPhoneBook();
+            }
+            case "2" -> {
+                deletePerson();
+                printPhoneBook();
+            }
+            case "3" -> {
+                addPerson();
+                printPhoneBook();
+            }
             case "x" -> System.exit(0);
         }
+    }
+
+    void printPhoneBook() {
+        System.out.println(this.phoneBookController.getPhoneBook().toString());
     }
 
     void addPerson() {

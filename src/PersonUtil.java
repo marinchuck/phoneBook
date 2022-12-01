@@ -1,6 +1,8 @@
 public class PersonUtil {
 
     public static Person convertNameAndNumberToPerson(String nameAndNumber){
-        return null;
+        String[] nameAndNumberArray = nameAndNumber.split(",");
+        return new Person(nameAndNumberArray[0], nameAndNumberArray[1]);
     }
+
 }
