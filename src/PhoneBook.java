@@ -8,9 +8,8 @@ public class PhoneBook {
     this.people = people;
   }
 
+  void add(Person personToAdd){}
+    void remove(Person personToRemove){
 
-  void addPerson(Person person){
-    this.people.add(person);
-  }
-
+    }
 }

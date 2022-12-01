@@ -1,33 +1,41 @@
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Controller {
 //String filePath;
 
-PhoneBook phoneBook;
-void readPeopleFromFile(String filePath){
-  PhoneBook phoneBook = new PhoneBook(new ArrayList<>());
+    PhoneBook phoneBook;
 
-  try {
-    FileReader fileReader = new FileReader(filePath);
-    BufferedReader bufferedReader = new BufferedReader(fileReader);
+    void readPeopleFromFile(String filePath) {
+        PhoneBook phoneBook = new PhoneBook(new ArrayList<>());
 
-    for (String line; (line = bufferedReader.readLine()) != null; ) {
-      line -> name, phonenumber;
-      Person personToAdd = new Person(name, phoneNumber);
-      phoneBook.addPerson(personToAdd);
+        try {
+            FileReader fileReader = new FileReader(filePath);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            for (String line; (line = bufferedReader.readLine()) != null; ) {
+                Person personToAdd = PersonUtil.convertNameAndNumberToPerson(line);
+                addPerson(personToAdd);
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: wrong path!\n" + e.getMessage());
+        }
+
+
     }
 
-  } catch (FileNotFoundException e) {
-    System.out.println("Error: wrong path!\n" + e.getMessage());
-  }
+    public void addPerson(String personData) {
+        Person personToAdd = PersonUtil.convertNameAndNumberToPerson(personData);
+        this.phoneBook.add(personToAdd);
+    }
 
-
-}
+    public void deletePerson(String personName) {
+        Person person = PersonUtil.convertNameToPerson(personName);
+        this.phoneBook.remove(person);
+    }
 }
 
 
