@@ -8,6 +8,17 @@ public class PhoneBook {
         this.people = people;
     }
 
+    public PhoneBook() {
+    }
+
+    public ArrayList<Person> getPeople() {
+        return people;
+    }
+
+    public void setPeople(ArrayList<Person> people) {
+        this.people = people;
+    }
+
     void add(Person personToAdd) {
         this.people.add(personToAdd);
     }

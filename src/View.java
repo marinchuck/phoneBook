@@ -1,6 +1,11 @@
+import java.util.Objects;
 import java.util.Scanner;
 
 public class View {
+
+    public Controller getPhoneBookController() {
+        return phoneBookController;
+    }
 
     Controller phoneBookController;
     Scanner sc;
@@ -11,10 +16,14 @@ public class View {
     }
 
     public void run() {
-        while (true) {
+        do{
             printMenu();
-            runTask(getInput());
+            String input = getInput();
+            if (Objects.equals(input, "x"))
+                return;
+            runTask(input);
         }
+        while (true);
     }
 
     void runTask(String option) {
@@ -42,7 +51,6 @@ public class View {
                 printInstruction("Kerlek add meg a telefonszamat az illetonek");
                 printNameByPhoneNumber();
             }
-            case "x" -> System.exit(0);
             default -> printInstruction("Nem ertelmezheto input, kerlek probald meg ujra!");
         }
     }
@@ -81,8 +89,7 @@ public class View {
     }
 
     String getInput() {
-        String input = sc.nextLine();
-        return input;
+        return sc.nextLine();
     }
 
     void addPerson() {
